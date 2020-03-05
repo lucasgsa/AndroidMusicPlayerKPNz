@@ -1,0 +1,2 @@
+rootProject.name='Player KPNz'
+include ':app'
