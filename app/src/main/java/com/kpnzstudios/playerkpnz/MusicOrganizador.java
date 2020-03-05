@@ -68,6 +68,9 @@ public class MusicOrganizador {
                 else if (mus != 0){
                     temp = new Music(thisId, thisTitle, thisArtist, thisAlbum, thisAlbumID, thisDuration,"music");
                 }
+                else{
+                    continue;
+                }
                 addInAlbum(temp);
                 lista_musicas.add(temp);
             }
