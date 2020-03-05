@@ -41,18 +41,18 @@ public class adapterAlbum extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = act.getLayoutInflater().inflate(R.layout.album_list, parent, false);
         Album album = albums.get(position);
-        ((TextView) view.findViewById(R.id.text_title)).setText(album.getAlbumName());
-        ((TextView) view.findViewById(R.id.text_artista)).setText(album.getAlbumArtist());
+        ((TextView) view.findViewById(R.id.albumadapter_album)).setText(album.getAlbumName());
+        ((TextView) view.findViewById(R.id.albumadapter_artist)).setText(album.getAlbumArtist());
         int sizeTemp = album.getSize();
         if (sizeTemp == 1){
-            ((TextView) view.findViewById(R.id.text_total)).setText(sizeTemp+" música");
+            ((TextView) view.findViewById(R.id.albumadapter_total)).setText(sizeTemp+" música");
         }
         else{
-            ((TextView) view.findViewById(R.id.text_total)).setText(album.getSize()+" músicas");
+            ((TextView) view.findViewById(R.id.albumadapter_total)).setText(album.getSize()+" músicas");
         }
 
         if (album.getArt() != null){
-            ((ImageView) view.findViewById(R.id.image_art)).setImageBitmap(album.getArt());
+            ((ImageView) view.findViewById(R.id.albumadapter_art)).setImageBitmap(album.getArt());
         }
         return view;
     }

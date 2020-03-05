@@ -11,14 +11,14 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_weight="0.2"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/musicadapter_titulo"
+                android:id="@+id/artistadapter_artista"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -26,24 +26,29 @@
                 android:textStyle="bold"
                 tools:text="titulo" />
 
-            <TextView
-                android:id="@+id/musicadapter_artist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="14dp"
-                tools:text="artista" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/artistadapter_albumSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="0.5"
+                    tools:text="18942 albuns" />
+
+                <TextView
+                    android:id="@+id/artistadapter_musicsSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    tools:text="400 musicas" />
+            </LinearLayout>
+
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/musicadapter_total"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.8"
-            android:text="mm:ss"
-            android:textAlignment="center"
-            android:textSize="12sp"
-            android:textStyle="italic" />
     </LinearLayout>
 
 </LinearLayout>

@@ -10,41 +10,25 @@ import android.util.Log;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Album {
+public class Album implements Serializable {
 
     private String albumName;
     private String albumArtist;
     private ArrayList<Music> albumMusicas;
     private long id;
-    Bitmap art;
+    private Bitmap bitmap;
+    private Context c;
 
     public Album(long id, String name, String artist, Context c) {
         this.albumName = name;
         this.albumArtist = artist;
         this.albumMusicas = new ArrayList<Music>();
         this.id = id;
-
-        Uri sArtworkUri = Uri
-                .parse("content://media/external/audio/albumart");
-        Uri albumArtUri = ContentUris.withAppendedId(sArtworkUri, id);
-
-        Bitmap bitmap = null;
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(
-                    c.getContentResolver(), albumArtUri);
-            bitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, true);
-
-        } catch (FileNotFoundException exception) {
-            exception.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            this.art = bitmap;
-            Log.i("foi","aaa");
-        }
+        this.c = c;
+        this.bitmap = reloadArt();
     }
 
     public void addMusic(Music music){
@@ -69,8 +53,29 @@ public class Album {
         return albumArtist;
     }
 
+    public Bitmap reloadArt() {
+        Uri sArtworkUri = Uri
+                .parse("content://media/external/audio/albumart");
+        Uri albumArtUri = ContentUris.withAppendedId(sArtworkUri, id);
+
+        Bitmap bitmap = null;
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(
+                    this.c.getContentResolver(), albumArtUri);
+            bitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, true);
+
+        } catch (FileNotFoundException exception) {
+            exception.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            return bitmap;
+        }
+    }
+
     public Bitmap getArt(){
-        return art;
+        return bitmap;
     }
 
     public ArrayList<Music> getAlbumMusicas() {

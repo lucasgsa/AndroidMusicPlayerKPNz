@@ -41,9 +41,9 @@ public class adapterMusic extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = act.getLayoutInflater().inflate(R.layout.music_list, parent, false);
         Music music = musicas.get(position);
-        ((TextView) view.findViewById(R.id.text_title)).setText(music.getTitle());
-        ((TextView) view.findViewById(R.id.text_artista)).setText(music.getArtist());
-        ((TextView) view.findViewById(R.id.text_total)).setText(music.getDuration());
+        ((TextView) view.findViewById(R.id.musicadapter_titulo)).setText(music.getTitle());
+        ((TextView) view.findViewById(R.id.musicadapter_artist)).setText(music.getArtist());
+        ((TextView) view.findViewById(R.id.musicadapter_total)).setText(music.getDuration());
         return view;
     }
 }

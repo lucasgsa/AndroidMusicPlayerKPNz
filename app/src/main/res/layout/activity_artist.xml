@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ArtistActivity"
+    android:background="@color/background">
+
+    <TextView
+        android:id="@+id/artist_ArtistName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="TextView"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:text="Artista Nome" />
+
+    <TextView
+        android:id="@+id/artist_musicsSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/artist_ArtistName"
+        android:layout_alignEnd="@id/artist_albumsSize"
+        android:layout_marginTop="-2dp"
+        android:layout_marginEnd="-261dp"
+        android:gravity="center_horizontal"
+        tools:text="59 musicas" />
+
+    <TextView
+        android:id="@+id/artist_albumsSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/artist_ArtistName"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="2dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        tools:text="40 albuns" />
+
+    <ListView
+        android:id="@+id/artist_list_albuns"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_above="@id/artist_musicas"
+        android:layout_alignTop="@id/artist_musicsSize"
+        android:layout_marginTop="56dp"
+        android:layout_marginBottom="14dp">
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/artist_musicas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/artist_list_musicas"
+        android:layout_marginBottom="13dp"
+        android:gravity="center_horizontal"
+        android:text="@string/musicas" />
+
+    <ListView
+        android:id="@+id/artist_list_musicas"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

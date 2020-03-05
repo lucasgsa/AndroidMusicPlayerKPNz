@@ -8,16 +8,19 @@ import android.provider.MediaStore;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class MusicOrganizador {
 
     private ArrayList<Music> lista_musicas;
-    private ArrayList<Album> lista_albuns;
+    private HashMap<Long, Album> lista_albuns;
+    private HashMap<String,Artist> lista_artistas;
 
     private Context c;
 
     public MusicOrganizador(Context arg0){
         this.c = arg0;
+        reloadArtist();
         reloadAlbum();
         reloadListaMusicas();
     }
@@ -25,7 +28,17 @@ public class MusicOrganizador {
     public ArrayList<Music> getMusicas(){
         return lista_musicas;
     }
-    public ArrayList<Album> getAlbums() { return lista_albuns; }
+    public ArrayList<Album> getAlbums() {
+        ArrayList<Album> temp = new ArrayList<Album>();
+        temp.addAll(lista_albuns.values());
+        return temp;
+    }
+
+    public ArrayList<Artist> getArtists() {
+        ArrayList<Artist> temp = new ArrayList<Artist>();
+        temp.addAll(lista_artistas.values());
+        return temp;
+    }
 
     public void reloadListaMusicas(){
         lista_musicas = new ArrayList<Music>();
@@ -80,16 +93,15 @@ public class MusicOrganizador {
     }
 
     public void addInAlbum(Music musica){
-        for (Album album:lista_albuns){
-            if (album.getId() == musica.getAlbumID()){
-                album.addMusic(musica);
-                return;
-            }
-        }
+        lista_albuns.get(musica.getAlbumID()).addMusic(musica);
+    }
+
+    public void addInArtist(Album album){
+        lista_artistas.get(album.getAlbumArtist()).addAlbum(album);
     }
 
     public void reloadAlbum(){
-        lista_albuns = new ArrayList<Album>();
+        lista_albuns = new HashMap<Long, Album>();
         ContentResolver musicResolver = c.getContentResolver();
         Uri musicUri = MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI;
         Cursor musicCursor = musicResolver.query(musicUri, null, null, null, null);
@@ -107,7 +119,29 @@ public class MusicOrganizador {
                 String thisTitle = musicCursor.getString(nameColumn);
                 String thisArtist = musicCursor.getString(artistColumn);
                 long thisAlbumID = musicCursor.getLong(idColumn);
-                lista_albuns.add(new Album(thisAlbumID, thisTitle, thisArtist, this.c));
+                Album temp = new Album(thisAlbumID, thisTitle, thisArtist, this.c);
+                lista_albuns.put(thisAlbumID ,temp);
+                addInArtist(temp);
+            }
+            while (musicCursor.moveToNext());
+        }
+    }
+
+    public void reloadArtist(){
+        lista_artistas = new HashMap<String, Artist>();
+        ContentResolver musicResolver = c.getContentResolver();
+        Uri musicUri = MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI;
+        Cursor musicCursor = musicResolver.query(musicUri, null, null, null, null);
+
+        if (musicCursor != null && musicCursor.moveToFirst()) {
+            //get columns
+            int artistColumn = musicCursor.getColumnIndex
+                    (MediaStore.Audio.Artists.ARTIST);
+            //add songs to list
+            do {
+                String thisArtist = musicCursor.getString(artistColumn);
+                Artist temp = new Artist(thisArtist);
+                lista_artistas.put(thisArtist,temp);
             }
             while (musicCursor.moveToNext());
         }
