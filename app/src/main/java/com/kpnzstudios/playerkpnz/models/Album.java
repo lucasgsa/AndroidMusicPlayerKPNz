@@ -1,12 +1,10 @@
-package com.kpnzstudios.playerkpnz;
+package com.kpnzstudios.playerkpnz.models;
 
 import android.content.ContentUris;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

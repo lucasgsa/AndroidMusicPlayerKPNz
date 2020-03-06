@@ -1,10 +1,14 @@
-package com.kpnzstudios.playerkpnz;
+package com.kpnzstudios.playerkpnz.util;
 
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+
+import com.kpnzstudios.playerkpnz.models.Album;
+import com.kpnzstudios.playerkpnz.models.Artist;
+import com.kpnzstudios.playerkpnz.models.Music;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +18,7 @@ public class MusicOrganizador {
 
     private ArrayList<Music> lista_musicas;
     private HashMap<Long, Album> lista_albuns;
-    private HashMap<String,Artist> lista_artistas;
+    private HashMap<String, Artist> lista_artistas;
 
     private Context c;
 

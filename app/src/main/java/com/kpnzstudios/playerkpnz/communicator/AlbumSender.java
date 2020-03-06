@@ -1,16 +1,10 @@
 package com.kpnzstudios.playerkpnz.communicator;
 
-import android.content.ContentUris;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.provider.MediaStore;
 
-import com.kpnzstudios.playerkpnz.Album;
-import com.kpnzstudios.playerkpnz.Music;
+import com.kpnzstudios.playerkpnz.models.Album;
+import com.kpnzstudios.playerkpnz.models.Music;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 

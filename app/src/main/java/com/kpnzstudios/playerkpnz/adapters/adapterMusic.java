@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.kpnzstudios.playerkpnz.Music;
+import com.kpnzstudios.playerkpnz.models.Music;
 import com.kpnzstudios.playerkpnz.R;
 
 import java.util.ArrayList;

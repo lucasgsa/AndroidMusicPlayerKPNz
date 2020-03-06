@@ -1,4 +1,4 @@
-package com.kpnzstudios.playerkpnz;
+package com.kpnzstudios.playerkpnz.models;
 
 import java.io.Serializable;
 

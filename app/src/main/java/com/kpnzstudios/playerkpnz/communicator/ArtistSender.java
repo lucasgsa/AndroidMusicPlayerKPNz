@@ -2,8 +2,8 @@ package com.kpnzstudios.playerkpnz.communicator;
 
 import android.content.Context;
 
-import com.kpnzstudios.playerkpnz.Album;
-import com.kpnzstudios.playerkpnz.Artist;
+import com.kpnzstudios.playerkpnz.models.Album;
+import com.kpnzstudios.playerkpnz.models.Artist;
 
 import java.io.Serializable;
 import java.util.ArrayList;

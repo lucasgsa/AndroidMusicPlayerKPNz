@@ -1,4 +1,4 @@
-package com.kpnzstudios.playerkpnz;
+package com.kpnzstudios.playerkpnz.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,8 +14,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.kpnzstudios.playerkpnz.R;
 import com.kpnzstudios.playerkpnz.adapters.adapterMusic;
 import com.kpnzstudios.playerkpnz.communicator.AlbumSender;
+import com.kpnzstudios.playerkpnz.models.Album;
+import com.kpnzstudios.playerkpnz.models.Music;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

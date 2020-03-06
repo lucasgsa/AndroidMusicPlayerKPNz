@@ -7,7 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kpnzstudios.playerkpnz.Album;
+import com.kpnzstudios.playerkpnz.models.Album;
 import com.kpnzstudios.playerkpnz.R;
 
 import java.util.ArrayList;

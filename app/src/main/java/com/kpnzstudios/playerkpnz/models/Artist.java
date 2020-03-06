@@ -1,8 +1,7 @@
-package com.kpnzstudios.playerkpnz;
+package com.kpnzstudios.playerkpnz.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class Artist implements Serializable {

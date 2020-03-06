@@ -1,14 +1,11 @@
-package com.kpnzstudios.playerkpnz;
+package com.kpnzstudios.playerkpnz.activities;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -16,19 +13,26 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.kpnzstudios.playerkpnz.util.MusicOrganizador;
+import com.kpnzstudios.playerkpnz.R;
 import com.kpnzstudios.playerkpnz.adapters.adapterAlbum;
 import com.kpnzstudios.playerkpnz.adapters.adapterArtist;
 import com.kpnzstudios.playerkpnz.adapters.adapterMusic;
 import com.kpnzstudios.playerkpnz.communicator.AlbumSender;
 import com.kpnzstudios.playerkpnz.communicator.ArtistSender;
-
-import java.util.ArrayList;
+import com.kpnzstudios.playerkpnz.models.Album;
+import com.kpnzstudios.playerkpnz.models.Artist;
+import com.kpnzstudios.playerkpnz.models.Music;
 
 public class MainActivity extends AppCompatActivity {
 
     MusicOrganizador musicOrganizador;
 
     String listType;
+
+    int atualLista;
+
+    static MainActivity instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         checarPermissao();
         musicOrganizador = new MusicOrganizador(getBaseContext());
         onClick();
+        instance = this;
     }
 
     public void onClick(){
@@ -78,12 +83,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setListAll(){
+        atualLista = 0;
         listType = "music";
         ListView listView = findViewById(R.id.list_view);
         adapterMusic adapter = new adapterMusic(musicOrganizador.getMusicas(), this);
         listView.setAdapter(adapter);
     }
     public void setListAlbum(){
+        atualLista = 1;
         listType = "album";
         ListView listView = findViewById(R.id.list_view);
         adapterAlbum adapter = new adapterAlbum(musicOrganizador.getAlbums(), this);
@@ -91,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setListArtist(){
+        atualLista = 2;
         listType = "artist";
         ListView listView = findViewById(R.id.list_view);
         adapterArtist adapter = new adapterArtist(musicOrganizador.getArtists(), this);
@@ -119,6 +127,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonArtist(View view){ setListArtist(); }
+
+    public void swipeDireita(){
+        if (atualLista == 0){
+            setListAlbum();
+        }
+        else if(atualLista == 1){
+            setListArtist();
+        }
+    }
+
+    public void swipeEsquerda(){
+        if (atualLista == 1){
+            setListAll();
+        }
+        else if (atualLista == 2){
+            setListAlbum();
+        }
+    }
 
     public void musicSelected(Music musica){
         ((LinearLayout) findViewById(R.id.layout_barDown)).setVisibility(View.VISIBLE);
