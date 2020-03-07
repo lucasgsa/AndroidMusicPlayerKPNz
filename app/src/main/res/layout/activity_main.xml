@@ -93,13 +93,15 @@
             tools:visibility="visible">
 
             <TextView
-                android:id="@+id/text_titulo"
+                android:id="@+id/main_titulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|top" />
+                android:layout_gravity="center|top"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/album_ArtistName"
+                android:id="@+id/main_artista"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center" />
@@ -117,7 +119,8 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@drawable/ic_back" />
+                    android:background="@drawable/ic_back"
+                    android:onClick="backMusic" />
 
                 <Button
                     android:id="@+id/button_playOrPause"
@@ -125,7 +128,8 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@drawable/ic_play" />
+                    android:background="@drawable/ic_play"
+                    android:onClick="resumeOrPause" />
 
                 <Button
                     android:id="@+id/button_next"
@@ -133,7 +137,8 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@drawable/ic_skip" />
+                    android:background="@drawable/ic_skip"
+                    android:onClick="nextMusic" />
             </LinearLayout>
 
             <SeekBar

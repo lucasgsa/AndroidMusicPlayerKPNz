@@ -16,6 +16,11 @@ import com.kpnzstudios.playerkpnz.communicator.AlbumSender;
 import com.kpnzstudios.playerkpnz.communicator.ArtistSender;
 import com.kpnzstudios.playerkpnz.models.Album;
 import com.kpnzstudios.playerkpnz.models.Artist;
+import com.kpnzstudios.playerkpnz.models.Fila;
+import com.kpnzstudios.playerkpnz.models.Music;
+import com.kpnzstudios.playerkpnz.service.MusicService;
+
+import java.util.ArrayList;
 
 public class ArtistActivity extends AppCompatActivity {
 
@@ -57,8 +62,17 @@ public class ArtistActivity extends AppCompatActivity {
         lista_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                return;
+                Music selected = ((Music) parent.getItemAtPosition(position));
+                musicSelected(artista.getMusics(), position);
             };
         });
+    }
+
+    private void musicSelected(ArrayList<Music> musicas, int posicaoInicial){
+        Fila fila = new Fila(musicas, posicaoInicial);
+        Intent intent = new Intent(this, MusicService.class);
+        intent.setAction("kpnz.start");
+        intent.putExtra("fila", fila);
+        startService(intent);
     }
 }

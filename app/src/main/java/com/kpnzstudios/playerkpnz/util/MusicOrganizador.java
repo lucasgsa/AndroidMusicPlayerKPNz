@@ -23,7 +23,13 @@ public class MusicOrganizador {
     private Context c;
 
     public MusicOrganizador(Context arg0){
+        lista_musicas = new ArrayList<Music>();
+        lista_albuns = new HashMap<Long, Album>();
+        lista_artistas = new HashMap<String, Artist>();
         this.c = arg0;
+    }
+
+    public void carregar(){
         reloadArtist();
         reloadAlbum();
         reloadListaMusicas();
@@ -44,7 +50,7 @@ public class MusicOrganizador {
         return temp;
     }
 
-    public void reloadListaMusicas(){
+    private void reloadListaMusicas(){
         lista_musicas = new ArrayList<Music>();
         ContentResolver musicResolver = c.getContentResolver();
         Uri musicUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
@@ -96,15 +102,15 @@ public class MusicOrganizador {
         Collections.sort(lista_musicas);
     }
 
-    public void addInAlbum(Music musica){
+    private void addInAlbum(Music musica){
         lista_albuns.get(musica.getAlbumID()).addMusic(musica);
     }
 
-    public void addInArtist(Album album){
+    private void addInArtist(Album album){
         lista_artistas.get(album.getAlbumArtist()).addAlbum(album);
     }
 
-    public void reloadAlbum(){
+    private void reloadAlbum(){
         lista_albuns = new HashMap<Long, Album>();
         ContentResolver musicResolver = c.getContentResolver();
         Uri musicUri = MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI;
@@ -131,7 +137,7 @@ public class MusicOrganizador {
         }
     }
 
-    public void reloadArtist(){
+    private void reloadArtist(){
         lista_artistas = new HashMap<String, Artist>();
         ContentResolver musicResolver = c.getContentResolver();
         Uri musicUri = MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI;

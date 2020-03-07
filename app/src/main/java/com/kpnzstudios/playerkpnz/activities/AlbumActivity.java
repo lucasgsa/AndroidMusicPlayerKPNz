@@ -3,6 +3,7 @@ package com.kpnzstudios.playerkpnz.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentUris;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,10 +19,13 @@ import com.kpnzstudios.playerkpnz.R;
 import com.kpnzstudios.playerkpnz.adapters.adapterMusic;
 import com.kpnzstudios.playerkpnz.communicator.AlbumSender;
 import com.kpnzstudios.playerkpnz.models.Album;
+import com.kpnzstudios.playerkpnz.models.Fila;
 import com.kpnzstudios.playerkpnz.models.Music;
+import com.kpnzstudios.playerkpnz.service.MusicService;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class AlbumActivity extends AppCompatActivity {
 
@@ -39,6 +43,7 @@ public class AlbumActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.album_ArtistName)).setText(album.getAlbumArtist());
         ((TextView) findViewById(R.id.album_albumName)).setText(album.getAlbumName());
         setList();
+        onClick();
     }
 
     public void setList(){
@@ -53,7 +58,7 @@ public class AlbumActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Music selected = ((Music) parent.getItemAtPosition(position));
-                Log.i("selected", "selected");
+                musicSelected(album.getAlbumMusicas(), position);
             };
         });
     }
@@ -77,5 +82,13 @@ public class AlbumActivity extends AppCompatActivity {
         finally {
             return bitmap;
         }
+    }
+
+    private void musicSelected(ArrayList<Music> musicas, int posicaoInicial){
+        Fila fila = new Fila(musicas, posicaoInicial);
+        Intent intent = new Intent(this, MusicService.class);
+        intent.setAction("kpnz.start");
+        intent.putExtra("fila", fila);
+        startService(intent);
     }
 }

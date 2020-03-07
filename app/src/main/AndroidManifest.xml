@@ -3,6 +3,8 @@
     package="com.kpnzstudios.playerkpnz">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -20,6 +22,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".service.MusicService"
+            android:stopWithTask="false"
+            android:singleUser="true">
+            <intent-filter>
+                <action android:name="kpnz.start" />
+                <action android:name="kpnz.next" />
+                <action android:name="kpnz.back" />
+                <action android:name="kpnz.resumeOrPause" />
+                <action android:name="kpnz.changedSeekBar"/>
+                <action android:name="kpnz.activityFinished" />
+                <action android:name="kpnz.activityOpened" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

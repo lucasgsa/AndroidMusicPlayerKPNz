@@ -1,5 +1,13 @@
 package com.kpnzstudios.playerkpnz.models;
 
+import android.content.ContentUris;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 
 public class Music implements Comparable<Music>, Serializable {
@@ -53,6 +61,27 @@ public class Music implements Comparable<Music>, Serializable {
     @Override
     public int compareTo(Music o) {
         return this.getTitle().compareTo(o.getTitle());
+    }
+
+    public Bitmap getArt(Context c) {
+        Uri sArtworkUri = Uri
+                .parse("content://media/external/audio/albumart");
+        Uri albumArtUri = ContentUris.withAppendedId(sArtworkUri, albumID);
+        Bitmap bitmap = null;
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(
+                    c.getContentResolver(), albumArtUri);
+            bitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, true);
+
+        } catch (FileNotFoundException exception) {
+            exception.printStackTrace();
+            bitmap = null;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            return bitmap;
+        }
     }
 }
 
