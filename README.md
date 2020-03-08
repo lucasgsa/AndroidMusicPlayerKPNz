@@ -1,5 +1,5 @@
 ﻿## **Android Music Player**
-
+<img src="./edits/ícon.png" width="100" height="100">
 *Project created with the intention of learning about Android programming.*
 Author: Lucas Gabriel - UFCG Computer Science Studant 2019.1
 
