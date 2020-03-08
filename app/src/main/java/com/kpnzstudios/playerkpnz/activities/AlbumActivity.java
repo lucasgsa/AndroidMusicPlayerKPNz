@@ -1,6 +1,7 @@
 package com.kpnzstudios.playerkpnz.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.ContentUris;
 import android.content.Intent;
@@ -89,6 +90,6 @@ public class AlbumActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MusicService.class);
         intent.setAction("kpnz.start");
         intent.putExtra("fila", fila);
-        startService(intent);
+        ContextCompat.startForegroundService(this, intent);
     }
 }

@@ -6,5 +6,6 @@
     <color name="color_bar">#D0B44B</color>
     <color name="list_background">#DECC88</color>
     <color name="background">#D0BA65</color>
-    <color name="font">#FFFFFF</color>
+    <color name="fontSelected">#DCCE98</color>
+    <color name="seekBar">#FFFFFF</color>
 </resources>

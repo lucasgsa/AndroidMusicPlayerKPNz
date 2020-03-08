@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         onClick();
         instance = this;
         setListAll();
+        select("all");
         linkarService();
         ((SeekBar) findViewById(R.id.seekBar)).setOnSeekBarChangeListener(this);
     }
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     public void linkarService(){
         Intent intent = new Intent(this, MusicService.class);
         intent.setAction("kpnz.activityOpened");
-        startForegroundService(intent);
+        startService(intent);
     }
 
     public void onClick(){
@@ -136,15 +137,37 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         startActivity(intent);
     }
 
+    private void select(String id){
+        if (id.equalsIgnoreCase("all")){
+            findViewById(R.id.button_allMusicas).setBackgroundResource(R.color.fontSelected);
+            findViewById(R.id.button_porAlbum).setBackgroundResource(R.color.color_bar);
+            findViewById(R.id.button_porArtista).setBackgroundResource(R.color.color_bar);
+        }
+        else if(id.equalsIgnoreCase("album")){
+            findViewById(R.id.button_allMusicas).setBackgroundResource(R.color.color_bar);
+            findViewById(R.id.button_porAlbum).setBackgroundResource(R.color.fontSelected);
+            findViewById(R.id.button_porArtista).setBackgroundResource(R.color.color_bar);
+        }
+        else if(id.equalsIgnoreCase("artist")){
+            findViewById(R.id.button_allMusicas).setBackgroundResource(R.color.color_bar);
+            findViewById(R.id.button_porAlbum).setBackgroundResource(R.color.color_bar);
+            findViewById(R.id.button_porArtista).setBackgroundResource(R.color.fontSelected);
+        }
+    }
     public void buttonTodas(View view){
         setListAll();
+        select("all");
     }
 
     public void buttonAlbum(View view){
         setListAlbum();
+        select("album");
     }
 
-    public void buttonArtist(View view){ setListArtist(); }
+    public void buttonArtist(View view){
+        setListArtist();
+        select("artist");
+    }
 
     public void swipeDireita(){
         if (atualLista == 0){

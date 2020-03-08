@@ -8,9 +8,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.AlbumActivity"></activity>
@@ -24,7 +24,7 @@
         </activity>
 
         <service android:name=".service.MusicService"
-            android:stopWithTask="false"
+            android:stopWithTask="true"
             android:singleUser="true">
             <intent-filter>
                 <action android:name="kpnz.start" />
@@ -34,6 +34,7 @@
                 <action android:name="kpnz.changedSeekBar"/>
                 <action android:name="kpnz.activityFinished" />
                 <action android:name="kpnz.activityOpened" />
+                <action android:name="kpnz.close" />
             </intent-filter>
         </service>
 

@@ -22,7 +22,7 @@
                 android:id="@+id/horizontalScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:background="@color/colorPrimaryDark">
+                android:background="@color/color_bar">
 
                 <LinearLayout
                     android:id="@+id/layout_barTop"
@@ -37,6 +37,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_marginRight="20dp"
                         android:foregroundGravity="center_vertical|center_horizontal"
                         android:onClick="buttonTodas"
                         android:text="@string/allMusicas" />
@@ -47,6 +48,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_marginRight="20dp"
                         android:layout_weight="1"
                         android:foregroundGravity="center_vertical|center_horizontal"
                         android:onClick="buttonArtist"
@@ -147,7 +149,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:progressTint="@color/font"
+                android:progressTint="@color/seekBar"
                 android:thumb="@color/colorAccent" />
 
         </LinearLayout>

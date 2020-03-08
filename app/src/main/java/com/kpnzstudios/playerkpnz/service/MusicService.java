@@ -83,6 +83,9 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         else if(intent.getAction().equalsIgnoreCase("kpnz.back")){
             backMusic();
         }
+        else if(intent.getAction().equalsIgnoreCase("kpnz.close")){
+            onDestroy();
+        }
         return START_NOT_STICKY;
     }
 
@@ -188,6 +191,21 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     private String channelName = "MediaKPNz";
     private int idNotification = 100;
 
+    NotificationManager manager;
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channelMain = new NotificationChannel(
+                    channelID,
+                    channelName,
+                    NotificationManager.IMPORTANCE_LOW
+            );
+            channelMain.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+
+            manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channelMain);
+        }
+    }
+
     private void sendNotification(){
         int playOrPause;
         if (mp.isPlaying()) {
@@ -209,9 +227,13 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         nextIntent.setAction("kpnz.next");
         PendingIntent nextPI = PendingIntent.getService(this, 0, nextIntent, 0);
 
+        Intent closeIntent = new Intent(this, MusicService.class);
+        nextIntent.setAction("kpnz.close");
+        PendingIntent closePI = PendingIntent.getService(this, 0, nextIntent, 0);
+
         Bitmap bit = fila.getMusicaAtual().getArt(getApplicationContext());
 
-        boolean fechavel = mp.isPlaying();
+        boolean fechavel = !mp.isPlaying();
 
         int draw;
 
@@ -231,9 +253,11 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
                 .addAction(playOrPause, "resumeOrPause", playPI)
                 .addAction(R.drawable.ic_skip, "resumeOrPause", nextPI)
                 .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
+                        .setShowCancelButton(true)
+                        .setCancelButtonIntent(closePI)
                         .setShowActionsInCompactView(0,1,2))
                 .build();
-            startForeground(idNotification, channelMain);
+        startForeground(idNotification, channelMain);
     }
 
     @Override
