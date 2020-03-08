@@ -12,12 +12,16 @@ Author: Lucas Gabriel - UFCG Computer Science Studant 2019.1
 
 **ScreensShots:**
 Begin of app:
-![MainActivity](./pics/pic_inicio.png)
+![MainActivity](./pics/pic_inicio.png =250x)
 
 Album:
-![AlbumActivity](https://github.com/lucasgsa/PlayerKPNz/raw/master/pics/pic_album.png)All Albuns list:
-![MainActivity List Albuns tab](https://github.com/lucasgsa/PlayerKPNz/raw/master/pics/pic_listAlbum.png)
+![AlbumActivity](./pics/pic_album.png)
+
+All Albuns list:
+![MainActivity List Albuns tab](./pics/pic_listAlbum.png)
+
 Artist:
-![ArtistActivity](https://github.com/lucasgsa/PlayerKPNz/raw/master/pics/pic_artista.png)
+![ArtistActivity](./pics/pic_artista.png)
+
 Notification:
-![Notification](https://github.com/lucasgsa/PlayerKPNz/raw/master/pics/pic_notification.png)
+![Notification](./pics/pic_notification.png)
