@@ -12,7 +12,7 @@ Author: Lucas Gabriel - UFCG Computer Science Studant 2019.1
 
 **ScreensShots:**
 Begin of app:
-![MainActivity](https://github.com/lucasgsa/PlayerKPNz/raw/master/pics/pic_inicio.png | width=100)
+![MainActivity](https://github.com/lucasgsa/PlayerKPNz/raw/master/pics/pic_inicio.png){:height="700px" width="400px"}
 
 Album:
 ![AlbumActivity](https://github.com/lucasgsa/PlayerKPNz/raw/master/pics/pic_album.png)All Albuns list:
