@@ -11,7 +11,6 @@ Author: Lucas Gabriel - UFCG Computer Science Studant 2019.1
  - Make the album Picture be rounded. 
 
 **ScreensShots:**
-Begin of app and album:\n
 <img src="./pics/pic_inicio.png" width="360" height="690"> <img src="./pics/pic_album.png" width="360" height="690">
 
 All Albuns list and artist activity:\n
