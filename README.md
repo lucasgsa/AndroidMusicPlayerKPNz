@@ -11,10 +11,14 @@ Author: Lucas Gabriel - UFCG Computer Science Studant 2019.1
  - Make the album Picture be rounded. 
 
 **ScreensShots:**
+Begin of app and album activity:
+
 <img src="./pics/pic_inicio.png" width="288" height="552"> <img src="./pics/pic_album.png" width="288" height="552">
 
 All Albuns list and artist activity:
+
 <img src="./pics/pic_listAlbum.png" width="288" height="552"> <img src="./pics/pic_artista.png" width="288" height="552">
 
 Notification:
+
 <img src="./pics/pic_notification.png" width="540" height="216">
