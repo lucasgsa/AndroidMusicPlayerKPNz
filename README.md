@@ -12,7 +12,7 @@ Author: Lucas Gabriel - UFCG Computer Science Studant 2019.1
 
 **ScreensShots:**
 Begin of app:
-![MainActivity](./pics/pic_inicio.png =250x)
+<img src="./pics/pic_inicio.png" width="690" height="360">
 
 Album:
 ![AlbumActivity](./pics/pic_album.png)
