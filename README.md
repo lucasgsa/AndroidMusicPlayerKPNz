@@ -11,17 +11,11 @@ Author: Lucas Gabriel - UFCG Computer Science Studant 2019.1
  - Make the album Picture be rounded. 
 
 **ScreensShots:**
-Begin of app:
-<img src="./pics/pic_inicio.png" width="690" height="360">
+Begin of app and album:
+<img src="./pics/pic_inicio.png" width="360" height="690"> <img src="./pics/pic_album.png" width="360" height="690">
 
-Album:
-![AlbumActivity](./pics/pic_album.png)
-
-All Albuns list:
-![MainActivity List Albuns tab](./pics/pic_listAlbum.png)
-
-Artist:
-![ArtistActivity](./pics/pic_artista.png)
+All Albuns list and artist activity:
+<img src="./pics/pic_listAlbum.png" width="360" height="690"> <img src="./pics/pic_artista.png" width="360" height="690">
 
 Notification:
-![Notification](./pics/pic_notification.png)
+<img src="./pics/pic_notification.png" width="360" height="690">
