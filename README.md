@@ -1,13 +1,16 @@
 ## <img src="./edits/icon.png" width="25" height="25"> **Android Music Player**
 *Project created with the intention of learning about Android programming.*
-Author: Lucas Gabriel - UFCG Computer Science Studant 2019.1
+
+*Author: Lucas Gabriel - UFCG Computer Science Studant 2019.1*
 
 **Things to do:**
  - Learn about MediaSession.
  - Know how to dismiss notification when paused.
  - Do a better design.
  - Create new tab to Podcasts downloaded at device.
- - Make the album Picture be rounded. 
+ - Make the album Picture be rounded.
+ - Add queue controller
+ - Create a Button to play randomly and implements at "Fila" class.
 
 **ScreensShots:**
 Begin of app and album activity:
