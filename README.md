@@ -21,4 +21,4 @@ All Albuns list and artist activity:
 
 Notification:
 
-<img src="./pics/pic_notification.png" width="540" height="216">
+<img src="./pics/pic_notification.png" width="540" height="116">
