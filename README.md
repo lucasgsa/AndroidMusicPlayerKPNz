@@ -11,6 +11,7 @@
  - Make the album Picture be rounded.
  - Add queue controller
  - Create a Button to play randomly and implements at "Fila" class.
+ - Use fragments to switch between tabs.
 
 **ScreensShots:**
 Begin of app and album activity:
