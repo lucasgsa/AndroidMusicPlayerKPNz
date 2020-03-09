@@ -13,13 +13,13 @@
  - Use fragments to switch between tabs.
 
 **ScreensShots:**
-Begin of app and album activity:
+MainActivity with all songs and all albuns list:
 
-<img src="./pics/pic_inicio.jpg" width="288" height="552"> <img src="./pics/pic_album.jpg" width="288" height="552">
+<img src="./pics/pic_inicio.jpg" width="288" height="552"> <img src="./pics/pic_listAlbum.jpg" width="288" height="552">
 
-All Albuns list and artist activity:
+AlbumActivity and ArtistActivity:
 
-<img src="./pics/pic_listAlbum.jpg" width="288" height="552"> <img src="./pics/pic_artista.jpg" width="288" height="552">
+<img src="./pics/pic_album.jpg" width="288" height="552"> <img src="./pics/pic_artista.jpg" width="288" height="552">
 
 Notification:
 
