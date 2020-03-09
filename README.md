@@ -24,3 +24,5 @@ AlbumActivity and ArtistActivity:
 Notification:
 
 <img src="./pics/pic_notification.png" width="430" height="116">
+
+*If u wanna test, u can download the alpha in the "./apk" directory.
