@@ -25,4 +25,5 @@ Notification:
 
 <img src="./pics/pic_notification.png" width="430" height="116">
 
-*If u wanna test, u can download the alpha in the "./apk" directory.
+*If u wanna test, u can download the alpha in the "./apk" directory.*
+**Version: 1.0.0**
