@@ -15,12 +15,12 @@
 **ScreensShots:**
 MainActivity with all songs and all albuns list:
 
-<img src="./pics/pic_inicio.jpg" width="288" height="552"> <img src="./pics/pic_listAlbum.jpg" width="288" height="552">
+<img src="./pics/pic_inicio.jpg" width="260" height="552"> <img src="./pics/pic_listAlbum.jpg" width="260" height="552">
 
 AlbumActivity and ArtistActivity:
 
-<img src="./pics/pic_album.jpg" width="288" height="552"> <img src="./pics/pic_artista.jpg" width="288" height="552">
+<img src="./pics/pic_album.jpg" width="260" height="552"> <img src="./pics/pic_artista.jpg" width="260" height="552">
 
 Notification:
 
-<img src="./pics/pic_notification.png" width="540" height="116">
+<img src="./pics/pic_notification.png" width="430" height="116">
