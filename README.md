@@ -10,17 +10,16 @@
  - Create new tab to Podcasts downloaded at device.
  - Make the album Picture be rounded.
  - Add queue controller
- - Create a Button to play randomly and implements at "Fila" class.
  - Use fragments to switch between tabs.
 
 **ScreensShots:**
 Begin of app and album activity:
 
-<img src="./pics/pic_inicio.png" width="288" height="552"> <img src="./pics/pic_album.png" width="288" height="552">
+<img src="./pics/pic_inicio.jpg" width="288" height="552"> <img src="./pics/pic_album.jpg" width="288" height="552">
 
 All Albuns list and artist activity:
 
-<img src="./pics/pic_listAlbum.png" width="288" height="552"> <img src="./pics/pic_artista.png" width="288" height="552">
+<img src="./pics/pic_listAlbum.jpg" width="288" height="552"> <img src="./pics/pic_artista.jpg" width="288" height="552">
 
 Notification:
 

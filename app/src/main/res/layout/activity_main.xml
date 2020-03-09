@@ -116,6 +116,13 @@
             android:elevation="1dp"
             android:onClick="random" />
 
+        <View
+            android:id="@+id/divider5"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_alignBottom="@id/horizontalScrollView"
+            android:background="?android:attr/listDivider" />
+
         <LinearLayout
             android:id="@+id/layout_barDown"
             android:layout_width="match_parent"
@@ -130,6 +137,12 @@
             android:orientation="vertical"
             android:visibility="gone"
             tools:visibility="visible">
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="?android:attr/listDivider" />
 
             <TextView
                 android:id="@+id/main_titulo"

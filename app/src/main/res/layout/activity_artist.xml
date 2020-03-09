@@ -48,6 +48,33 @@
         android:text="@string/albuns"
         tools:text="Albuns" />
 
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_alignTop="@id/artist_list_albuns"
+        android:background="?android:attr/listDivider"
+        android:elevation="1dp"
+        android:foregroundTint="#000000" />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_alignTop="@id/artist_list_musicas"
+        android:background="?android:attr/listDivider"
+        android:elevation="1dp"
+        android:foregroundTint="#000000" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_alignBottom="@id/artist_list_albuns"
+        android:background="?android:attr/listDivider"
+        android:elevation="1dp"
+        android:foregroundTint="#000000" />
+
     <ListView
         android:id="@+id/artist_list_albuns"
         android:layout_width="match_parent"
@@ -55,7 +82,9 @@
         android:layout_alignTop="@id/artist_musicsSize"
         android:layout_marginTop="56dp"
         android:layout_marginBottom="14dp"
-        android:background="@color/list_background"></ListView>
+        android:background="@color/list_background">
+
+    </ListView>
 
     <TextView
         android:id="@+id/artist_musicas"
