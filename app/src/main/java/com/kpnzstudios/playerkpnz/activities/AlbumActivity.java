@@ -27,6 +27,7 @@ import com.kpnzstudios.playerkpnz.service.MusicService;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class AlbumActivity extends AppCompatActivity {
 
@@ -91,5 +92,11 @@ public class AlbumActivity extends AppCompatActivity {
         intent.setAction("kpnz.start");
         intent.putExtra("fila", fila);
         ContextCompat.startForegroundService(this, intent);
+    }
+
+    public void random(View view){
+        ArrayList<Music> temp = new ArrayList<Music>(album.getAlbumMusicas());
+        Collections.shuffle(temp);
+        musicSelected(temp, 0);
     }
 }

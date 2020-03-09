@@ -31,6 +31,7 @@ import com.kpnzstudios.playerkpnz.models.Artist;
 import com.kpnzstudios.playerkpnz.models.Music;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener{
 
@@ -169,6 +170,11 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         select("artist");
     }
 
+    public void buttonConfigs(View view){
+        Toast ts = Toast.makeText(this, "Função não implementada ainda!", Toast.LENGTH_LONG);
+        ts.show();
+    }
+
     public void swipeDireita(){
         if (atualLista == 0){
             setListAlbum();
@@ -211,6 +217,12 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         intent.setAction("kpnz.start");
         intent.putExtra("fila", fila);
         ContextCompat.startForegroundService(this, intent);;
+    }
+
+    public void random(View view){
+        ArrayList<Music> temp = new ArrayList<Music>(musicOrganizador.getMusicas());
+        Collections.shuffle(temp);
+        musicSelected(temp, 0);
     }
 
     @Override

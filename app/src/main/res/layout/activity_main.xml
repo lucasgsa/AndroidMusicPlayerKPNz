@@ -7,68 +7,90 @@
     tools:context=".activities.MainActivity">
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/layout_main"
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/color_bar"
-            android:gravity="start"
-            android:orientation="vertical">
+            android:layout_height="64dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/color_bar">
 
-            <HorizontalScrollView
-                android:id="@+id/horizontalScrollView"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:background="@color/color_bar">
+            <LinearLayout
+                android:id="@+id/layout_barTop"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:id="@+id/layout_barTop"
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/button_allMusicas"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
+                    android:foregroundGravity="center_vertical|center_horizontal"
+                    android:onClick="buttonTodas"
+                    android:text="@string/allMusicas" />
 
-                    <Button
-                        android:id="@+id/button_allMusicas"
-                        style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_marginRight="20dp"
-                        android:foregroundGravity="center_vertical|center_horizontal"
-                        android:onClick="buttonTodas"
-                        android:text="@string/allMusicas" />
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
-                    <Button
-                        android:id="@+id/button_porArtista"
-                        style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_marginRight="20dp"
-                        android:layout_weight="1"
-                        android:foregroundGravity="center_vertical|center_horizontal"
-                        android:onClick="buttonArtist"
-                        android:text="@string/porArtista" />
+                <Button
+                    android:id="@+id/button_porArtista"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
+                    android:foregroundGravity="center_vertical|center_horizontal"
+                    android:onClick="buttonArtist"
+                    android:text="@string/porArtista" />
 
-                    <Button
-                        android:id="@+id/button_porAlbum"
-                        style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_weight="1"
-                        android:foregroundGravity="center_vertical|center_horizontal"
-                        android:onClick="buttonAlbum"
-                        android:text="@string/porAlbum" />
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
-                </LinearLayout>
-            </HorizontalScrollView>
+                <Button
+                    android:id="@+id/button_porAlbum"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
+                    android:foregroundGravity="center_vertical|center_horizontal"
+                    android:onClick="buttonAlbum"
+                    android:text="@string/porAlbum" />
 
-        </LinearLayout>
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/button_configs"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
+                    android:foregroundGravity="center_vertical|center_horizontal"
+                    android:onClick="buttonConfigs"
+                    android:text="@string/Configs" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <ListView
             android:id="@+id/list_view"
@@ -76,8 +98,23 @@
             android:layout_height="match_parent"
             android:layout_alignWithParentIfMissing="true"
             android:layout_above="@id/layout_barDown"
-            android:layout_below="@id/layout_main"
-            android:background="@color/list_background" />
+            android:layout_below="@id/horizontalScrollView"
+            android:background="@color/list_background">
+
+        </ListView>
+
+        <Button
+            android:id="@+id/button_mainRandom"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/ic_random"
+            android:elevation="1dp"
+            android:onClick="random" />
 
         <LinearLayout
             android:id="@+id/layout_barDown"
@@ -141,6 +178,7 @@
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/ic_skip"
                     android:onClick="nextMusic" />
+
             </LinearLayout>
 
             <SeekBar

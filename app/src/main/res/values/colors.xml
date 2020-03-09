@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#DECC88</color>
-    <color name="colorPrimaryDark">#D0BA65</color>
-    <color name="colorAccent">#D0BA65</color>
-    <color name="color_bar">#D0B44B</color>
-    <color name="list_background">#DECC88</color>
-    <color name="background">#D0BA65</color>
-    <color name="fontSelected">#DCCE98</color>
-    <color name="seekBar">#FFFFFF</color>
+    <color name="colorPrimary">#4B086F</color>
+    <color name="colorPrimaryDark">#5F459B</color>
+    <color name="colorAccent">#888892</color>
+    <color name="color_bar">#738EAE</color>
+    <color name="list_background">#FFFFFF</color>
+    <color name="background">#04153F</color>
+    <color name="fontSelected">#6675A0</color>
+    <color name="seekBar">#711087</color>
+
+    <color name="yellow_colorPrimary">#DECC88</color>
+    <color name="yellow_colorPrimaryDark">#D0BA65</color>
+    <color name="yellow_colorAccent">#D0BA65</color>
+    <color name="yellow_color_bar">#D0B44B</color>
+    <color name="yellow_list_background">#DECC88</color>
+    <color name="yellow_background">#D0BA65</color>
+    <color name="yellow_fontSelected">#DCCE98</color>
+    <color name="yellow_seekBar">#FFFFFF</color>
 </resources>

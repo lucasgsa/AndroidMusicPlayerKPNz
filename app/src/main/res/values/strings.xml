@@ -3,6 +3,9 @@
     <string name="allMusicas">Todas</string>
     <string name="porArtista">Por artista</string>
     <string name="porAlbum">Por album</string>
+    <string name="Configs">Configurações</string>
     <string name="albuns">Álbuns</string>
     <string name="musicas">Músicas</string>
+    <string name="setaEsquerda"><![CDATA[<<<]]></string>
+    <string name="setaDireita"><![CDATA[>>>]]></string>
 </resources>

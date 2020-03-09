@@ -74,4 +74,12 @@
         android:layout_alignParentBottom="true"
         android:background="@color/list_background" />
 
+    <Button
+        android:id="@+id/artist_buttonRandom"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignBaseline="@id/artist_musicas"
+        android:background="@drawable/ic_random"
+        android:onClick="random" />
+
 </RelativeLayout>

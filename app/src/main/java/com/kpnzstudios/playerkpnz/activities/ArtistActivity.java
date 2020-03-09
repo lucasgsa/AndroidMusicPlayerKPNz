@@ -22,6 +22,8 @@ import com.kpnzstudios.playerkpnz.models.Music;
 import com.kpnzstudios.playerkpnz.service.MusicService;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class ArtistActivity extends AppCompatActivity {
 
@@ -75,5 +77,11 @@ public class ArtistActivity extends AppCompatActivity {
         intent.setAction("kpnz.start");
         intent.putExtra("fila", fila);
         ContextCompat.startForegroundService(this, intent);
+    }
+
+    public void random(View view){
+        ArrayList<Music> temp = new ArrayList<Music>(artista.getMusics());
+        Collections.shuffle(temp);
+        musicSelected(temp, 0);
     }
 }

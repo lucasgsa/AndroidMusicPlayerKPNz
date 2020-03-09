@@ -96,7 +96,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
             public void run() {
                 while (ActivityOpen){
                     try {
-                        if (mp != null && prepared && mp.isPlaying())
+                        if (mp != null && prepared)
                         if (ActivityOpen) ((SeekBar) MainActivity.instance.findViewById(R.id.seekBar)).setProgress(mp.getCurrentPosition()/1000);
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -132,6 +132,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
             SeekBar sk = MainActivity.instance.findViewById(R.id.seekBar);
             sk.setProgress(0);
             sk.setMax(mp.getDuration()/1000);
+            if (mp != null && prepared) sk.setProgress(mp.getCurrentPosition()/1000);
             ((TextView) MainActivity.instance.findViewById(R.id.main_artista)).setText(fila.getMusicaAtual().getArtist());
             ((TextView) MainActivity.instance.findViewById(R.id.main_titulo)).setText(fila.getMusicaAtual().getTitle());
             if (mp.isPlaying()) ((Button) MainActivity.instance.findViewById(R.id.button_playOrPause)).setBackgroundResource(R.drawable.ic_pause);
