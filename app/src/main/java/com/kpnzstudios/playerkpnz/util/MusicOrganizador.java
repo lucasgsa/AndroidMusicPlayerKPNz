@@ -30,8 +30,6 @@ public class MusicOrganizador {
     }
 
     public void carregar(){
-        reloadArtist();
-        reloadAlbum();
         reloadListaMusicas();
     }
 
@@ -103,57 +101,17 @@ public class MusicOrganizador {
     }
 
     private void addInAlbum(Music musica){
+        if (!lista_albuns.containsKey(musica.getAlbumID())){
+            lista_albuns.put(musica.getAlbumID(), new Album(musica.getAlbumID(), musica.getAlbum(), musica.getArtist(), c));
+        }
         lista_albuns.get(musica.getAlbumID()).addMusic(musica);
     }
 
     private void addInArtist(Album album){
+        if (!lista_artistas.containsKey(album.getId())){
+            lista_artistas.put(album.getAlbumArtist(), new Artist(album.getAlbumArtist()));
+        }
         lista_artistas.get(album.getAlbumArtist()).addAlbum(album);
     }
 
-    private void reloadAlbum(){
-        lista_albuns = new HashMap<Long, Album>();
-        ContentResolver musicResolver = c.getContentResolver();
-        Uri musicUri = MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI;
-        Cursor musicCursor = musicResolver.query(musicUri, null, null, null, null);
-
-        if (musicCursor != null && musicCursor.moveToFirst()) {
-            //get columns
-            int artistColumn = musicCursor.getColumnIndex
-                    (MediaStore.Audio.Albums.ARTIST);
-            int nameColumn = musicCursor.getColumnIndex
-                    (MediaStore.Audio.Albums.ALBUM);
-            int idColumn = musicCursor.getColumnIndexOrThrow
-                    (MediaStore.Audio.Albums._ID);
-            //add songs to list
-            do {
-                String thisTitle = musicCursor.getString(nameColumn);
-                String thisArtist = musicCursor.getString(artistColumn);
-                long thisAlbumID = musicCursor.getLong(idColumn);
-                Album temp = new Album(thisAlbumID, thisTitle, thisArtist, this.c);
-                lista_albuns.put(thisAlbumID ,temp);
-                addInArtist(temp);
-            }
-            while (musicCursor.moveToNext());
-        }
-    }
-
-    private void reloadArtist(){
-        lista_artistas = new HashMap<String, Artist>();
-        ContentResolver musicResolver = c.getContentResolver();
-        Uri musicUri = MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI;
-        Cursor musicCursor = musicResolver.query(musicUri, null, null, null, null);
-
-        if (musicCursor != null && musicCursor.moveToFirst()) {
-            //get columns
-            int artistColumn = musicCursor.getColumnIndex
-                    (MediaStore.Audio.Artists.ARTIST);
-            //add songs to list
-            do {
-                String thisArtist = musicCursor.getString(artistColumn);
-                Artist temp = new Artist(thisArtist);
-                lista_artistas.put(thisArtist,temp);
-            }
-            while (musicCursor.moveToNext());
-        }
-    }
 }

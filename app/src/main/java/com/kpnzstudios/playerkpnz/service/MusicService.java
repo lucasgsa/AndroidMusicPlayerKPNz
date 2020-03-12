@@ -244,7 +244,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         else{
             draw = R.drawable.ic_pause;
         }
-
+        createNotificationChannel();
         Notification channelMain = new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setContentTitle(fila.getMusicaAtual().getTitle())
                 .setContentText(fila.getMusicaAtual().getArtist())
