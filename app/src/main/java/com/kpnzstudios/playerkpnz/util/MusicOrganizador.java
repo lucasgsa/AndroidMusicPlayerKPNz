@@ -105,10 +105,11 @@ public class MusicOrganizador {
             lista_albuns.put(musica.getAlbumID(), new Album(musica.getAlbumID(), musica.getAlbum(), musica.getArtist(), c));
         }
         lista_albuns.get(musica.getAlbumID()).addMusic(musica);
+        addInArtist(lista_albuns.get(musica.getAlbumID()));
     }
 
     private void addInArtist(Album album){
-        if (!lista_artistas.containsKey(album.getId())){
+        if (!lista_artistas.containsKey(album.getAlbumArtist())){
             lista_artistas.put(album.getAlbumArtist(), new Artist(album.getAlbumArtist()));
         }
         lista_artistas.get(album.getAlbumArtist()).addAlbum(album);
