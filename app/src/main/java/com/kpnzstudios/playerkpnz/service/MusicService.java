@@ -46,8 +46,6 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
 
     private boolean ActivityOpen;
 
-    private boolean barShow;
-
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -63,17 +61,15 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
             playFila();
             if (ActivityOpen)
                 ((LinearLayout) MainActivity.instance.findViewById(R.id.layout_barDown)).setVisibility(View.VISIBLE);
-            barShow = true;
         } else if (intent.getAction().equalsIgnoreCase("kpnz.activityOpened")) {
             this.ActivityOpen = true;
             onOpenActivity();
         } else if (intent.getAction().equalsIgnoreCase("kpnz.activityFinished")) {
             this.ActivityOpen = false;
+            sendNotification();
         } else if (intent.getAction().equalsIgnoreCase("kpnz.changedSeekBar")) {
             int progress = intent.getExtras().getInt("progress");
-            SeekBar sk = MainActivity.instance.findViewById(R.id.seekBar);
-            sk.setProgress(progress);
-            mp.seekTo(progress * 1000);
+            seekChanged(progress);
         } else if (intent.getAction().equalsIgnoreCase("kpnz.resumeOrPause")) {
             pauseOrResume();
         } else if (intent.getAction().equalsIgnoreCase("kpnz.next")) {
@@ -81,18 +77,18 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         } else if (intent.getAction().equalsIgnoreCase("kpnz.back")) {
             backMusic();
         } else if (intent.getAction().equalsIgnoreCase("kpnz.close")) {
-            fecharNaActivity();
             stopForeground(true);
             stopSelf();
         }
         return START_NOT_STICKY;
     }
 
-    public void fecharNaActivity(){
-        barShow = false;
-        if (ActivityOpen){
-            ((LinearLayout) MainActivity.instance.findViewById(R.id.layout_barDown)).setVisibility(View.GONE);
-        }
+    public void seekChanged(int progress){
+        if (mp == null) return;
+        if (!prepared) return;
+        SeekBar sk = MainActivity.instance.findViewById(R.id.seekBar);
+        sk.setProgress(progress);
+        mp.seekTo(progress * 1000);
     }
 
     public void onOpenActivity(){
@@ -100,7 +96,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         new Thread(){
             @Override
             public void run() {
-                while (ActivityOpen || barShow){
+                while (ActivityOpen){
                     try {
                         if (mp != null && prepared)
                         if (ActivityOpen) ((SeekBar) MainActivity.instance.findViewById(R.id.seekBar)).setProgress(mp.getCurrentPosition()/1000);
@@ -114,7 +110,11 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
                 }
             }
         }.start();
-        if (prepared) atualizarActivity();
+        if (prepared) {
+            atualizarActivity();
+            sendNotification();
+        }
+
     }
 
     public void playFila(){
@@ -240,12 +240,13 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
 
         Intent openActivityIntent = new Intent(this, MainActivity.class);
         openActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                | Intent.FLAG_ACTIVITY_NO_ANIMATION);
         PendingIntent openActivityPI = PendingIntent.getActivity(this, 0, openActivityIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         Bitmap bit = fila.getMusicaAtual().getArt(getApplicationContext());
 
-        boolean fechavel = !mp.isPlaying();
+        boolean fechavel = !mp.isPlaying() && !ActivityOpen;
 
         int draw;
 
