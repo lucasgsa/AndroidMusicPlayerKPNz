@@ -245,7 +245,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
             draw = R.drawable.ic_pause;
         }
         createNotificationChannel();
-        Notification channelMain = new NotificationCompat.Builder(getApplicationContext(), channelID)
+        Notification notificationMain = new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setContentTitle(fila.getMusicaAtual().getTitle())
                 .setContentText(fila.getMusicaAtual().getArtist())
                 .setSmallIcon(draw)
@@ -258,7 +258,13 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
                         .setCancelButtonIntent(closePI)
                         .setShowActionsInCompactView(0,1,2))
                 .build();
-        startForeground(idNotification, channelMain);
+        if (fechavel){
+            stopForeground(true);
+            manager.notify(idNotification, notificationMain);
+        }
+        else {
+            startForeground(idNotification, notificationMain);
+        }
     }
 
     @Override
