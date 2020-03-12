@@ -5,12 +5,13 @@
 
 **Things to do:**
  - Learn about MediaSession.
- - Know how to dismiss notification when paused.
  - Do a better design.
- - Create new tab to Podcasts downloaded at device.
- - Make the album Picture be rounded.
  - Add queue controller
  - Use fragments to switch between tabs.
+ - Create new tab to Podcasts downloaded at device. *DISCONTINUED*
+ - Know how to dismiss notification when paused. *DONE*
+ - Make the album Picture be rounded. *DONE*
+ - Find a better way to organize musics in album and artists. *DONE*
 
 **ScreensShots:**
 MainActivity with all songs and all albuns list:

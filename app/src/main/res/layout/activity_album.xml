@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/list_background"
     android:orientation="vertical"
     tools:context=".activities.AlbumActivity">
 
@@ -16,7 +17,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:background="@color/color_bar"
+            android:backgroundTint="@color/color_bar"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp">
 
             <ImageView
                 android:id="@+id/album_image"
@@ -68,27 +72,30 @@
                         android:layout_height="50dp"
                         android:background="@drawable/ic_random"
                         android:onClick="random" />
+
                 </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
-
         <View
             android:id="@+id/divider6"
             android:layout_width="match_parent"
-            android:layout_height="3dp"
+            android:layout_height="2dp"
             android:background="?android:attr/listDivider" />
 
         <ListView
             android:id="@+id/list_musics"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="10dp">
+
+        </ListView>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
 
     </LinearLayout>
 

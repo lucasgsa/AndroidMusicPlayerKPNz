@@ -58,38 +58,32 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent.getAction().equalsIgnoreCase("kpnz.start")) {
             prepared = false;
-            Fila fila= (Fila) intent.getExtras().getSerializable("fila");
+            Fila fila = (Fila) intent.getExtras().getSerializable("fila");
             this.fila = fila;
             playFila();
-            if (ActivityOpen) ((LinearLayout) MainActivity.instance.findViewById(R.id.layout_barDown)).setVisibility(View.VISIBLE);
+            if (ActivityOpen)
+                ((LinearLayout) MainActivity.instance.findViewById(R.id.layout_barDown)).setVisibility(View.VISIBLE);
             barShow = true;
-        }
-        else if (intent.getAction().equalsIgnoreCase("kpnz.activityOpened")){
+        } else if (intent.getAction().equalsIgnoreCase("kpnz.activityOpened")) {
             this.ActivityOpen = true;
             onOpenActivity();
-        }
-        else if (intent.getAction().equalsIgnoreCase("kpnz.activityFinished")){
+        } else if (intent.getAction().equalsIgnoreCase("kpnz.activityFinished")) {
             this.ActivityOpen = false;
-        }
-        else if(intent.getAction().equalsIgnoreCase("kpnz.changedSeekBar")){
-            int progress= intent.getExtras().getInt("progress");
+        } else if (intent.getAction().equalsIgnoreCase("kpnz.changedSeekBar")) {
+            int progress = intent.getExtras().getInt("progress");
             SeekBar sk = MainActivity.instance.findViewById(R.id.seekBar);
             sk.setProgress(progress);
-            mp.seekTo(progress*1000);
-        }
-        else if(intent.getAction().equalsIgnoreCase("kpnz.resumeOrPause")){
+            mp.seekTo(progress * 1000);
+        } else if (intent.getAction().equalsIgnoreCase("kpnz.resumeOrPause")) {
             pauseOrResume();
-        }
-        else if(intent.getAction().equalsIgnoreCase("kpnz.next")){
+        } else if (intent.getAction().equalsIgnoreCase("kpnz.next")) {
             nextMusic();
-        }
-        else if(intent.getAction().equalsIgnoreCase("kpnz.back")){
+        } else if (intent.getAction().equalsIgnoreCase("kpnz.back")) {
             backMusic();
-        }
-        else if(intent.getAction().equalsIgnoreCase("kpnz.close")){
-            onDestroy();
-            stopSelf();
+        } else if (intent.getAction().equalsIgnoreCase("kpnz.close")) {
             fecharNaActivity();
+            stopForeground(true);
+            stopSelf();
         }
         return START_NOT_STICKY;
     }
@@ -241,8 +235,13 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         PendingIntent nextPI = PendingIntent.getService(this, 0, nextIntent, 0);
 
         Intent closeIntent = new Intent(this, MusicService.class);
-        nextIntent.setAction("kpnz.close");
-        PendingIntent closePI = PendingIntent.getService(this, 0, nextIntent, 0);
+        closeIntent.setAction("kpnz.close");
+        PendingIntent closePI = PendingIntent.getService(this, 0, closeIntent, 0);
+
+        Intent openActivityIntent = new Intent(this, MainActivity.class);
+        openActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent openActivityPI = PendingIntent.getActivity(this, 0, openActivityIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         Bitmap bit = fila.getMusicaAtual().getArt(getApplicationContext());
 
@@ -270,6 +269,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
                         .setCancelButtonIntent(closePI)
                         .setShowActionsInCompactView(0,1,2))
                 .setDeleteIntent(closePI)
+                .setContentIntent(openActivityPI)
                 .build();
         if (fechavel){
             stopForeground(true);

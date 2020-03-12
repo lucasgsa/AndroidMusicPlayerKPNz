@@ -87,10 +87,7 @@ public class MusicOrganizador {
                 int pod = musicCursor.getInt(isPodcast);
                 int mus = musicCursor.getInt(isMusic);
                 Music temp = null;
-                if (pod != 0) {
-                    temp = new Music(thisId, thisTitle, thisArtist, thisAlbum, thisAlbumID, thisDuration, "podcast");
-                }
-                else if (mus != 0){
+                if (mus != 0){
                     temp = new Music(thisId, thisTitle, thisArtist, thisAlbum, thisAlbumID, thisDuration,"music");
                 }
                 else{

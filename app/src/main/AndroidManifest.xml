@@ -27,7 +27,7 @@
         <service
             android:name=".service.MusicService"
             android:singleUser="true"
-            android:stopWithTask="true">
+            android:stopWithTask="false">
             <intent-filter>
                 <action android:name="kpnz.start" />
                 <action android:name="kpnz.next" />

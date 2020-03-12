@@ -16,7 +16,9 @@ public class Artist implements Serializable, Comparable<Artist> {
     }
 
     public void addAlbum(Album album){
-        albums.add(album);
+        if (!albums.contains(album)) {
+            albums.add(album);
+        }
     }
 
     public String getName(){
