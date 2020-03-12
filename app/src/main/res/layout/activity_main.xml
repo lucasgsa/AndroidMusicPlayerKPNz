@@ -39,6 +39,8 @@
                     android:layout_weight="1"
                     android:foregroundGravity="center_vertical|center_horizontal"
                     android:onClick="buttonTodas"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:text="@string/allMusicas" />
 
                 <Space
@@ -55,6 +57,8 @@
                     android:layout_weight="1"
                     android:foregroundGravity="center_vertical|center_horizontal"
                     android:onClick="buttonArtist"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:text="@string/porArtista" />
 
                 <Space
@@ -71,6 +75,8 @@
                     android:layout_weight="1"
                     android:foregroundGravity="center_vertical|center_horizontal"
                     android:onClick="buttonAlbum"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:text="@string/porAlbum" />
 
                 <Space
@@ -87,6 +93,8 @@
                     android:layout_weight="1"
                     android:foregroundGravity="center_vertical|center_horizontal"
                     android:onClick="buttonConfigs"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:text="@string/Configs" />
 
             </LinearLayout>

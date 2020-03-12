@@ -13,6 +13,7 @@ import com.kpnzstudios.playerkpnz.models.Music;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class MusicOrganizador {
 
@@ -36,15 +37,18 @@ public class MusicOrganizador {
     public ArrayList<Music> getMusicas(){
         return lista_musicas;
     }
+
     public ArrayList<Album> getAlbums() {
         ArrayList<Album> temp = new ArrayList<Album>();
         temp.addAll(lista_albuns.values());
+        Collections.sort(temp);
         return temp;
     }
 
     public ArrayList<Artist> getArtists() {
         ArrayList<Artist> temp = new ArrayList<Artist>();
         temp.addAll(lista_artistas.values());
+        Collections.sort(temp);
         return temp;
     }
 

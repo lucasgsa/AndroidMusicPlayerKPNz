@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Album implements Serializable {
+public class Album implements Serializable, Comparable<Album>  {
 
     private String albumName;
     private String albumArtist;
@@ -78,5 +78,10 @@ public class Album implements Serializable {
 
     public ArrayList<Music> getAlbumMusicas() {
         return albumMusicas;
+    }
+
+    @Override
+    public int compareTo(Album o) {
+        return this.getAlbumName().compareTo(o.getAlbumName());
     }
 }

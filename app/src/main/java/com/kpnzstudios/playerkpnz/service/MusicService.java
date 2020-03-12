@@ -46,6 +46,8 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
 
     private boolean ActivityOpen;
 
+    private boolean barShow;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -60,6 +62,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
             this.fila = fila;
             playFila();
             if (ActivityOpen) ((LinearLayout) MainActivity.instance.findViewById(R.id.layout_barDown)).setVisibility(View.VISIBLE);
+            barShow = true;
         }
         else if (intent.getAction().equalsIgnoreCase("kpnz.activityOpened")){
             this.ActivityOpen = true;
@@ -85,8 +88,17 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         }
         else if(intent.getAction().equalsIgnoreCase("kpnz.close")){
             onDestroy();
+            stopSelf();
+            fecharNaActivity();
         }
         return START_NOT_STICKY;
+    }
+
+    public void fecharNaActivity(){
+        barShow = false;
+        if (ActivityOpen){
+            ((LinearLayout) MainActivity.instance.findViewById(R.id.layout_barDown)).setVisibility(View.GONE);
+        }
     }
 
     public void onOpenActivity(){
@@ -94,7 +106,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         new Thread(){
             @Override
             public void run() {
-                while (ActivityOpen){
+                while (ActivityOpen || barShow){
                     try {
                         if (mp != null && prepared)
                         if (ActivityOpen) ((SeekBar) MainActivity.instance.findViewById(R.id.seekBar)).setProgress(mp.getCurrentPosition()/1000);
@@ -257,6 +269,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
                         .setShowCancelButton(true)
                         .setCancelButtonIntent(closePI)
                         .setShowActionsInCompactView(0,1,2))
+                .setDeleteIntent(closePI)
                 .build();
         if (fechavel){
             stopForeground(true);

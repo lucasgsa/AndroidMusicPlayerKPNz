@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Artist implements Serializable {
+public class Artist implements Serializable, Comparable<Artist> {
 
     private ArrayList<Album> albums;
 
@@ -48,4 +48,8 @@ public class Artist implements Serializable {
         return temp;
     }
 
+    @Override
+    public int compareTo(Artist o) {
+        return this.getName().compareTo(o.getName());
+    }
 }

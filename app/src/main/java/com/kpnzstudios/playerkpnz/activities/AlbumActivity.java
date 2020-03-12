@@ -2,14 +2,11 @@ package com.kpnzstudios.playerkpnz.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
-import android.content.ContentUris;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -24,8 +21,6 @@ import com.kpnzstudios.playerkpnz.models.Fila;
 import com.kpnzstudios.playerkpnz.models.Music;
 import com.kpnzstudios.playerkpnz.service.MusicService;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -40,12 +35,18 @@ public class AlbumActivity extends AppCompatActivity {
         AlbumSender albumSender = (AlbumSender) getIntent().getExtras().getSerializable("album");
         album = albumSender.getRealAlbum(getBaseContext());
         if (album.getArt() != null) {
-            ((ImageView) findViewById(R.id.album_image)).setImageBitmap(album.getArt());
+            ((ImageView) findViewById(R.id.album_image)).setImageDrawable(getRoundedArt());
         }
         ((TextView) findViewById(R.id.album_ArtistName)).setText(album.getAlbumArtist());
         ((TextView) findViewById(R.id.album_albumName)).setText(album.getAlbumName());
         setList();
         onClick();
+    }
+
+    public RoundedBitmapDrawable getRoundedArt(){
+        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), album.getArt());
+        roundedBitmapDrawable.setCircular(true);
+        return roundedBitmapDrawable;
     }
 
     public void setList(){
@@ -63,27 +64,6 @@ public class AlbumActivity extends AppCompatActivity {
                 musicSelected(album.getAlbumMusicas(), position);
             };
         });
-    }
-
-    public Bitmap reloadArt(long id) {
-        Uri sArtworkUri = Uri
-                .parse("content://media/external/audio/albumart");
-        Uri albumArtUri = ContentUris.withAppendedId(sArtworkUri, id);
-
-        Bitmap bitmap = null;
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(
-                    getBaseContext().getContentResolver(), albumArtUri);
-            bitmap = Bitmap.createScaledBitmap(bitmap, 120, 120, true);
-
-        } catch (FileNotFoundException exception) {
-            exception.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            return bitmap;
-        }
     }
 
     private void musicSelected(ArrayList<Music> musicas, int posicaoInicial){
