@@ -39,6 +39,7 @@
                 <action android:name="kpnz.close" />
             </intent-filter>
         </service>
+
     </application>
 
 </manifest>

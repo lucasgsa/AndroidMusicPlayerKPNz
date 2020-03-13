@@ -4,10 +4,10 @@
 *Author: Lucas Gabriel - UFCG Computer Science Studant 2019.1*
 
 **Things to do:**
- - Learn about MediaSession.
  - Do a better design.
  - Add queue controller
  - Use fragments to switch between tabs.
+ - Learn about MediaSession and use media buttons to play and pause actions. *DONE*
  - Create new tab to Podcasts downloaded at device. *DISCONTINUED*
  - Know how to dismiss notification when paused. *DONE*
  - Make the album Picture be rounded. *DONE*
