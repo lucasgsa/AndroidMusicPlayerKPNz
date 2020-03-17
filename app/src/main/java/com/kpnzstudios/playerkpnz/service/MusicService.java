@@ -56,35 +56,37 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent.getAction().equalsIgnoreCase("kpnz.start")) {
-            prepared = false;
-            Fila fila = (Fila) intent.getExtras().getSerializable("fila");
-            this.fila = fila;
-            playFila();
-            if (ActivityOpen)
-                ((LinearLayout) MainActivity.instance.findViewById(R.id.layout_barDown)).setVisibility(View.VISIBLE);
-            registerEvents();
-        } else if (intent.getAction().equalsIgnoreCase("kpnz.activityOpened")) {
-            this.ActivityOpen = true;
-            onOpenActivity();
-        } else if (intent.getAction().equalsIgnoreCase("kpnz.activityFinished")) {
-            this.ActivityOpen = false;
-            if (prepared) {
-                sendNotification();
+        if (intent.getAction() != null) {
+            if (intent.getAction().equalsIgnoreCase("kpnz.start")) {
+                prepared = false;
+                Fila fila = (Fila) intent.getExtras().getSerializable("fila");
+                this.fila = fila;
+                playFila();
+                if (ActivityOpen)
+                    ((LinearLayout) MainActivity.instance.findViewById(R.id.layout_barDown)).setVisibility(View.VISIBLE);
+                registerEvents();
+            } else if (intent.getAction().equalsIgnoreCase("kpnz.activityOpened")) {
+                this.ActivityOpen = true;
+                onOpenActivity();
+            } else if (intent.getAction().equalsIgnoreCase("kpnz.activityFinished")) {
+                this.ActivityOpen = false;
+                if (prepared) {
+                    sendNotification();
+                }
+            } else if (intent.getAction().equalsIgnoreCase("kpnz.changedSeekBar")) {
+                int progress = intent.getExtras().getInt("progress");
+                seekChanged(progress);
+            } else if (intent.getAction().equalsIgnoreCase("kpnz.resumeOrPause")) {
+                pauseOrResume();
+            } else if (intent.getAction().equalsIgnoreCase("kpnz.next")) {
+                nextMusic();
+            } else if (intent.getAction().equalsIgnoreCase("kpnz.back")) {
+                backMusic();
+            } else if (intent.getAction().equalsIgnoreCase("kpnz.close")) {
+                stopForeground(true);
+                stopSelf();
+                mediaSession.release();
             }
-        } else if (intent.getAction().equalsIgnoreCase("kpnz.changedSeekBar")) {
-            int progress = intent.getExtras().getInt("progress");
-            seekChanged(progress);
-        } else if (intent.getAction().equalsIgnoreCase("kpnz.resumeOrPause")) {
-            pauseOrResume();
-        } else if (intent.getAction().equalsIgnoreCase("kpnz.next")) {
-            nextMusic();
-        } else if (intent.getAction().equalsIgnoreCase("kpnz.back")) {
-            backMusic();
-        } else if (intent.getAction().equalsIgnoreCase("kpnz.close")) {
-            stopForeground(true);
-            stopSelf();
-            mediaSession.release();
         }
         return START_NOT_STICKY;
     }
@@ -99,13 +101,19 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
             public boolean onMediaButtonEvent(Intent mediaButtonIntent) {
                 KeyEvent keyEvent = mediaButtonIntent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
                 if (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_MEDIA_NEXT && keyEvent.getAction() == KeyEvent.ACTION_DOWN){
-                    nextMusic();
+                    Intent backIntent = new Intent(getApplicationContext(), MusicService.class);
+                    backIntent.setAction("kpnz.next");
+                    PendingIntent backPI = PendingIntent.getService(getApplicationContext(), 0, backIntent, 0);
                 }
                 else if(keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_MEDIA_PREVIOUS && keyEvent.getAction() == KeyEvent.ACTION_DOWN ){
-                    backMusic();
+                    Intent backIntent = new Intent(getApplicationContext(), MusicService.class);
+                    backIntent.setAction("kpnz.back");
+                    PendingIntent backPI = PendingIntent.getService(getApplicationContext(), 0, backIntent, 0);
                 }
                 else if(keyEvent != null && (keyEvent.getKeyCode() == KeyEvent.KEYCODE_MEDIA_PAUSE || keyEvent.getKeyCode() == KeyEvent.KEYCODE_MEDIA_PLAY) && keyEvent.getAction() == KeyEvent.ACTION_DOWN){
-                    pauseOrResume();
+                    Intent backIntent = new Intent(getApplicationContext(), MusicService.class);
+                    backIntent.setAction("kpnz.resumeOrPause");
+                    PendingIntent backPI = PendingIntent.getService(getApplicationContext(), 0, backIntent, 0);
                 }
                 return super.onMediaButtonEvent(mediaButtonIntent);
             }
@@ -304,6 +312,8 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         if (fechavel){
             stopForeground(true);
             manager.notify(idNotification, notificationMain);
+            Intent resend = new Intent(getApplicationContext(), MusicService.class);
+            startService(resend);
         }
         else {
             startForeground(idNotification, notificationMain);
@@ -311,13 +321,9 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     }
 
     @Override
-    public void onTaskRemoved(Intent rootIntent) {
-        super.onTaskRemoved(rootIntent);
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
+        manager.cancelAll();
     }
 
     public void finalizar(){
