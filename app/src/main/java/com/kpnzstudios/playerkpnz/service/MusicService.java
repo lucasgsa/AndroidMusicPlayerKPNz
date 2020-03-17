@@ -7,15 +7,18 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.session.MediaSession;
+
 import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
-import android.util.Log;
+import android.provider.MediaStore;
+import android.support.v4.media.session.MediaSessionCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -29,10 +32,11 @@ import androidx.core.app.NotificationCompat;
 import com.kpnzstudios.playerkpnz.R;
 import com.kpnzstudios.playerkpnz.activities.MainActivity;
 import com.kpnzstudios.playerkpnz.models.Fila;
+import com.kpnzstudios.playerkpnz.models.Music;
 
 import java.io.IOException;
 
-public class MusicService extends Service implements MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener{
+public class MusicService extends Service implements MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener, AudioManager.OnAudioFocusChangeListener{
 
     private Fila fila;
 
@@ -44,9 +48,17 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
 
     private boolean broadcastMedia;
 
-    MediaSession mediaSession;
+    private MediaSessionCompat mediaSession;
 
-    BroadcastReceiver mediaButtonBroadcast;
+    private BroadcastReceiver mediaButtonBroadcast;
+
+    private android.media.AudioManager audioManager;
+
+    private String channelID = "mainMusicKPNz";
+    private String channelName = "MediaKPNz";
+    private int idNotification = 100;
+
+    private NotificationManager manager;
 
     @Nullable
     @Override
@@ -93,27 +105,27 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
 
     public void registerEvents(){
         if (mediaSession != null) return;
-        mediaSession = new MediaSession(getApplicationContext(), getPackageName());
+        mediaSession = new MediaSessionCompat(getBaseContext(), "musicService");
         mediaSession.setActive(true);
 
-        mediaSession.setCallback(new MediaSession.Callback() {
+        mediaSession.setCallback(new MediaSessionCompat.Callback() {
             @Override
             public boolean onMediaButtonEvent(Intent mediaButtonIntent) {
                 KeyEvent keyEvent = mediaButtonIntent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
                 if (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_MEDIA_NEXT && keyEvent.getAction() == KeyEvent.ACTION_DOWN){
-                    Intent backIntent = new Intent(getApplicationContext(), MusicService.class);
-                    backIntent.setAction("kpnz.next");
-                    PendingIntent backPI = PendingIntent.getService(getApplicationContext(), 0, backIntent, 0);
+                    Intent nextIntent = new Intent(getApplicationContext(), MusicService.class);
+                    nextIntent.setAction("kpnz.next");
+                    startService(nextIntent);
                 }
                 else if(keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_MEDIA_PREVIOUS && keyEvent.getAction() == KeyEvent.ACTION_DOWN ){
                     Intent backIntent = new Intent(getApplicationContext(), MusicService.class);
                     backIntent.setAction("kpnz.back");
-                    PendingIntent backPI = PendingIntent.getService(getApplicationContext(), 0, backIntent, 0);
+                    startService(backIntent);
                 }
                 else if(keyEvent != null && (keyEvent.getKeyCode() == KeyEvent.KEYCODE_MEDIA_PAUSE || keyEvent.getKeyCode() == KeyEvent.KEYCODE_MEDIA_PLAY) && keyEvent.getAction() == KeyEvent.ACTION_DOWN){
-                    Intent backIntent = new Intent(getApplicationContext(), MusicService.class);
-                    backIntent.setAction("kpnz.resumeOrPause");
-                    PendingIntent backPI = PendingIntent.getService(getApplicationContext(), 0, backIntent, 0);
+                    Intent pauseIntent = new Intent(getApplicationContext(), MusicService.class);
+                    pauseIntent.setAction("kpnz.resumeOrPause");
+                    startService(pauseIntent);
                 }
                 return super.onMediaButtonEvent(mediaButtonIntent);
             }
@@ -129,7 +141,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     }
 
     public void onOpenActivity(){
-        if (mp != null) ((LinearLayout) MainActivity.instance.findViewById(R.id.layout_barDown)).setVisibility(View.VISIBLE);
+        if (mp != null) (MainActivity.instance.findViewById(R.id.layout_barDown)).setVisibility(View.VISIBLE);
         new Thread(){
             @Override
             public void run() {
@@ -151,7 +163,6 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
             atualizarActivity();
             sendNotification();
         }
-
     }
 
     public void playFila(){
@@ -167,6 +178,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         }
         mp.setOnCompletionListener(this);
         mp.setOnPreparedListener(this);
+        audioManager = (AudioManager) getBaseContext().getSystemService(Context.AUDIO_SERVICE);
         mp.prepareAsync();
     }
 
@@ -178,8 +190,8 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
             if (mp != null && prepared) sk.setProgress(mp.getCurrentPosition()/1000);
             ((TextView) MainActivity.instance.findViewById(R.id.main_artista)).setText(fila.getMusicaAtual().getArtist());
             ((TextView) MainActivity.instance.findViewById(R.id.main_titulo)).setText(fila.getMusicaAtual().getTitle());
-            if (mp.isPlaying()) ((Button) MainActivity.instance.findViewById(R.id.button_playOrPause)).setBackgroundResource(R.drawable.ic_pause);
-            else ((Button) MainActivity.instance.findViewById(R.id.button_playOrPause)).setBackgroundResource(R.drawable.ic_play);
+            if (mp.isPlaying()) (MainActivity.instance.findViewById(R.id.button_playOrPause)).setBackgroundResource(R.drawable.ic_pause);
+            else (MainActivity.instance.findViewById(R.id.button_playOrPause)).setBackgroundResource(R.drawable.ic_play);
         }
     }
 
@@ -189,6 +201,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         player.start();
         atualizarActivity();
         sendNotification();
+        atualizarFocus();
     }
 
     private void zerarMP(){
@@ -215,6 +228,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         }
         atualizarActivity();
         sendNotification();
+        atualizarFocus();
     }
 
     public void nextMusic(){
@@ -231,11 +245,6 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         playFila();
     }
 
-    private String channelID = "mainMusicKPNz";
-    private String channelName = "MediaKPNz";
-    private int idNotification = 100;
-
-    NotificationManager manager;
     private void createNotificationChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel channelMain = new NotificationChannel(
@@ -283,7 +292,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
 
         Bitmap bit = fila.getMusicaAtual().getArt(getApplicationContext());
 
-        boolean fechavel = !mp.isPlaying() && !ActivityOpen;
+        boolean fechavel = !mp.isPlaying();
 
         int draw;
 
@@ -305,7 +314,8 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
                 .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                         .setShowCancelButton(true)
                         .setCancelButtonIntent(closePI)
-                        .setShowActionsInCompactView(0,1,2))
+                        .setShowActionsInCompactView(0,1,2)
+                        .setMediaSession(mediaSession.getSessionToken()))
                 .setDeleteIntent(closePI)
                 .setContentIntent(openActivityPI)
                 .build();
@@ -326,9 +336,32 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         manager.cancelAll();
     }
 
-    public void finalizar(){
-        zerarMP();
+    @Override
+    public void onAudioFocusChange(int focusChange) {
+        if (focusChange == AudioManager.AUDIOFOCUS_GAIN){
+            pauseOrResume();
+            if (mp != null && prepared) mp.setVolume(1.0f, 1.0f);
+        }
+        else if (focusChange == AudioManager.AUDIOFOCUS_LOSS){
+            pauseOrResume();
+        }
+        else if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT){
+            pauseOrResume();
+        }
+        else if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK){
+            if (mp != null && prepared) mp.setVolume(0.05f, 0.05f);
+        }
     }
 
-
+    private boolean atualizarFocus() {
+        if (mp != null && mp.isPlaying()) {
+            int result = audioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+            return result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED;
+        }
+        else if (mp != null && !mp.isPlaying()){
+            return AudioManager.AUDIOFOCUS_REQUEST_GRANTED ==
+                    audioManager.abandonAudioFocus(this);
+        }
+        return false;
+    }
 }
